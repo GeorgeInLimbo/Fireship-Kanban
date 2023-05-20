@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "kanban-tutorial-a415f": {
+      "hosting": {
+        "firestarter": [
+          "kanban-tutorial-a415f"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "kanban-tutorial-a415f"
+  }
+}
