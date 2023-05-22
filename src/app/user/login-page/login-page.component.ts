@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Auth, authState, signOut } from '@angular/fire/auth';
 
+
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
