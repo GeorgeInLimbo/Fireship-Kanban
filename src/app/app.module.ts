@@ -8,17 +8,19 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { SharedModule } from './shared/shared.module';
 import { HomePageComponent } from './home-page/home-page.component';
 
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
+    // Components are defined in this module
     AppComponent,
-    HomePageComponent
+    HomePageComponent,
   ],
   imports: [
+    // Components are used in this module
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -26,9 +28,9 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     LayoutModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

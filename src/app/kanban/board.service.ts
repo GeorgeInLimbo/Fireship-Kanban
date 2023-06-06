@@ -12,6 +12,7 @@ import {
   query,
   updateDoc,
   where,
+  writeBatch,
 } from '@angular/fire/firestore';
 import { Board, Task } from './board.model';
 import { switchMap } from 'rxjs';
@@ -54,37 +55,32 @@ export class BoardService {
   }
 
   getUserBoards() {
-    authState(this._auth).pipe(
+    return authState(this._auth).pipe(
+      // Return an observable of an auth state
       switchMap((user) => {
+        // Returns an observable of data instead of auth user
         if (user) {
           return collectionData(
             query(
               collection(this._firestore, 'boards'),
               where('uid', '==', user.uid),
-              orderBy('priority')
+              orderBy('priority') // if the user isn't falsy, we provide some data for the user
             ),
             { idField: 'id' }
           );
         } else {
-          return [];
+          return []; // If user is falsy, return fuckin nothin
         }
       })
     );
   }
 
-  // getUserBoards() {
-  //   return this.afAuth.authState.pipe(
-  //     switchMap((user) => {
-  //       if (user) {
-  //         return this.db
-  //           .collection<Board>('boards', (ref) =>
-  //             ref.where('uid', '==', user.uid).orderBy('priority')
-  //           )
-  //           .valueChanges({ idField: 'id' });
-  //       } else {
-  //         return [];
-  //       }
-  //     })
-  //   );
-  // }
+  sortBoards(boards: Board[]) {
+    const batch = writeBatch(this._firestore);
+    const refs = boards
+      .filter((b) => !!b.id)
+      .map((b) => doc(this._firestore, 'boards', b.id!));
+    refs.forEach((ref, idx) => batch.update(ref, { priority: idx }));
+    batch.commit();
+  }
 }

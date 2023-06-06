@@ -7,10 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { BoardComponent } from './board/board.component';
+import { BoardListComponent } from './board-list/board-list.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [BoardComponent, BoardListComponent],
   imports: [
     CommonModule,
     KanbanRoutingModule,
@@ -18,7 +20,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     DragDropModule,
     MatDialogModule,
-    MatButtonToggleModule
-  ]
+    MatButtonToggleModule,
+    MatIconModule,
+  ],
 })
-export class KanbanModule { }
+export class KanbanModule {}
